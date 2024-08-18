@@ -24,7 +24,6 @@ def greater_following(prof_A, prof_B):
                 return sum2   
 
 def user_response_process(high_foll,display_1, display_2):
-    print(art.logo)
     print(f"Compare A: {display_1['name']}, {display_1['description']}, from {display_1['country']}")
     print(art.vs)
     print(f"Compare B: {display_2['name']}, {display_2['description']}, from {display_2['country']}\n")
@@ -48,13 +47,8 @@ while continue_game:
     score = user_response_process(higher_following,profile_A,profile_B)
     if score == 1:
         record += 1
-        print(f"Correct!Your current score is {record}\n")
+        print(art.logo)
+        print(f"Correct!Your current score is {record}")
     else:
        print("You Lost")
        continue_game = False
-
-
-
-#Ascii art repeatedly show up for all comparisons.
-
-
