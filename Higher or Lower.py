@@ -1,15 +1,11 @@
-#import dictionaries
 import game_data, art
 from random import randint
-# ascii art and show user two options
-print(art.logo, art.vs)
-profile_dict = game_data.data
 
 def getting_profile():
     profile_A = profile_dict[randint(0, len(profile_dict)-1)]
     profile_B = profile_dict[randint(0, len(profile_dict)-1)]
     if profile_A == profile_B:
-        getting_profile()  
+        return getting_profile()  
     return profile_A, profile_B
 
 def greater_following(prof_A, prof_B):
@@ -19,8 +15,7 @@ def greater_following(prof_A, prof_B):
     for key in prof_A and prof_B:
         if key == 'follower_count':
             sum1.append(prof_A[key])
-            sum2.append(prof_B[key])
-            print(sum1, sum2)           
+            sum2.append(prof_B[key])           
             if sum1 > sum2:
                 sum1.append('A')
                 return sum1
@@ -28,21 +23,37 @@ def greater_following(prof_A, prof_B):
                 sum2.append('B')
                 return sum2   
 
-def user_response_process(high_foll):
+def user_response_process(high_foll,display_1, display_2):
+    print(art.logo)
+    print(f"Compare A: {display_1['name']}, {display_1['description']}, from {display_1['country']}")
+    print(art.vs)
+    print(f"Compare B: {display_2['name']}, {display_2['description']}, from {display_2['country']}\n")
+
     answer = input("Type 'A', if A has higher following or type 'B', if B has a higher following:").upper()
     if answer == high_foll[1]:
-        print("correct")
+        return 1
         #loop to next profiles
     else:
-        return'wrong'
+        return 0
+
 
 #main program
-profile_A, profile_B = getting_profile()
-higher_following = greater_following(profile_A, profile_B)
-user_response_process(higher_following)
-#either keep track of score or end game
+profile_dict = game_data.data
+record = 0
 
-#Randomly iterarte through dictionary for next comparison
+continue_game = True
+while continue_game:
+    profile_A, profile_B = getting_profile()
+    higher_following = greater_following(profile_A, profile_B)
+    score = user_response_process(higher_following,profile_A,profile_B)
+    if score == 1:
+        record += 1
+        print(f"Correct!Your current score is {record}\n")
+    else:
+       print("You Lost")
+       continue_game = False
+
+
 
 #Ascii art repeatedly show up for all comparisons.
 
